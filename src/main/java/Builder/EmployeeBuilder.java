@@ -3,6 +3,7 @@ package Builder;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 final class Employee{
     private Integer id;
@@ -91,8 +92,9 @@ class Runner {
         ExecutorService es = Executors.newFixedThreadPool(2);
         es.submit(runnable1);
         es.submit(runnable2);
+
         try {
-            Thread.sleep(1000);
+            es.awaitTermination(100, TimeUnit.MILLISECONDS) ;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
